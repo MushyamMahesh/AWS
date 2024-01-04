@@ -1,0 +1,5 @@
+argparse
+configparser
+psycopg2-binary
+unittest2
+psycopg2
