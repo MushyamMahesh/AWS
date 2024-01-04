@@ -6,8 +6,10 @@ name: Python package
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    path: 
+    - 'Workflow_Scripts/Deploy_files.txt'
+ # pull_request:
+ #  branches: [ "main" ]
 
 jobs:
   build:
