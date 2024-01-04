@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9"]
+        python-version: ["3.10"]
 
     steps:
     - uses: actions/checkout@v3
@@ -28,13 +28,13 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        cd python-scripts
+        cd Workflow_Scripts
         pip3 install --upgrade -r requirements.txt
-    - name: Deploy the postgres Scripts
+    - name: Deploy the SQL Scripts
       run: |
         pwd
-        cd python-scripts
-        python3 ./create_pagila_data.py --instance master
+        cd Workflow_Scripts
+        python3 ./Deploy_SQL_Scripts.py --instance master
    # - name: Lint with flake8
    #   run: |
    #     # stop the build if there are Python syntax errors or undefined names
