@@ -6,7 +6,7 @@ name: Python package
 on:
   push:
     branches: [ "main" ]
-    path: 
+    paths: 
     - 'Workflow_Scripts/Deploy_files.txt'
  # pull_request:
  #  branches: [ "main" ]
@@ -28,14 +28,13 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install flake8 pytest
-        if [ -f Workflow_Scripts/requirements.txt ]; then pip install -r requirements.txt;
-     - name: Deploy Scripts
-     - run: |
-          pwd
-          cd Workflow_Scripts
-          python3 ./Deploy_SQL_Scripts.py --instance master
+        cd python-scripts
+        pip3 install --upgrade -r requirements.txt
+    - name: Deploy the postgres Scripts
+      run: |
+        pwd
+        cd python-scripts
+        python3 ./create_pagila_data.py --instance master
    # - name: Lint with flake8
    #   run: |
    #     # stop the build if there are Python syntax errors or undefined names
