@@ -59,6 +59,7 @@ def create_pagila_db():
                 files = content.split('\n')
                 for file in files:
                     if file != '':
+                        print(file)
                         curs.execute(open(file, "r").read())
                 #curs.execute(open("../sql-scripts/data.sql", "r").read())
                 raise NameError('Test Error')
