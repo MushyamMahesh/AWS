@@ -62,9 +62,9 @@ def deploy_scripts():
                         print(file)
                         curs.execute(open(file, "r").read())
                 #curs.execute(open("../sql-scripts/data.sql", "r").read())
-                raise NameError('Test Error')
+                #raise NameError('Test Error')
                 conn.commit()
-                print('Pagila SQL scripts executed')
+                print('SQL scripts executed')
     except (psycopg2.OperationalError, psycopg2.DatabaseError, FileNotFoundError) as err:
         print(deploy_scripts.__name__, err)
         close_conn()
