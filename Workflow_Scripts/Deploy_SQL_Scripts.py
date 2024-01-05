@@ -43,9 +43,9 @@ def db_info():
         exit(1)
 
 
-def create_pagila_db():
+def deploy_scripts():
     """
-    Creates Pagila database by running DDL and DML scripts
+    Deploy Sql Scripts
     """
 
     try:
@@ -66,7 +66,7 @@ def create_pagila_db():
                 conn.commit()
                 print('Pagila SQL scripts executed')
     except (psycopg2.OperationalError, psycopg2.DatabaseError, FileNotFoundError) as err:
-        print(create_pagila_db.__name__, err)
+        print(deploy_scripts.__name__, err)
         close_conn()
         exit(1)
     except NameError as err:
@@ -74,29 +74,6 @@ def create_pagila_db():
         close_conn()
         exit(1)
 
-
-def get_table_count():
-    """
-    Queries database for table count as a test
-    """
-
-    try:
-        global conn
-        with conn:
-            with conn.cursor() as curs:
-                curs.execute("""
-                    SELECT COUNT(*)
-                    FROM information_schema.tables
-                    WHERE table_schema = 'public';
-                """)
-
-                table_count = curs.fetchone()[0]  # returns tuple (28,)
-                return table_count
-    except (psycopg2.OperationalError, psycopg2.DatabaseError) as err:
-        print(get_table_count.__name__, err)
-
-        close_conn()
-        exit(1)
 
 
 def close_conn():
@@ -124,8 +101,7 @@ def main():
     set_connection(args.instance)
     print('Database info:', db_info())
 
-    create_pagila_db()
-    print('Number of database tables:', get_table_count())
+    deploy_scripts()
     close_conn()
 
 
