@@ -61,10 +61,15 @@ def create_pagila_db():
                     if file != '':
                         curs.execute(open(file, "r").read())
                 #curs.execute(open("../sql-scripts/data.sql", "r").read())
+                raise NameError('Test Error')
                 conn.commit()
                 print('Pagila SQL scripts executed')
     except (psycopg2.OperationalError, psycopg2.DatabaseError, FileNotFoundError) as err:
         print(create_pagila_db.__name__, err)
+        close_conn()
+        exit(1)
+    except NameError as err:
+        print('error raised intentionally')
         close_conn()
         exit(1)
 
