@@ -56,7 +56,7 @@ def create_pagila_db():
                 content = file.read()
                 print(content)
                 file.close()
-                files = content.split['\n']
+                files = content.split('\n')
                 for file in files:
                     if file != '':
                         curs.execute(open(file, "r").read())
