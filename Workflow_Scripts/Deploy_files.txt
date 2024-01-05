@@ -1,2 +1,2 @@
-
+../Untitled/insert movie data1.sql
 ../Untitled/insert movie data2.sql
