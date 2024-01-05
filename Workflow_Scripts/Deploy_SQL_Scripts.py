@@ -53,7 +53,7 @@ def create_pagila_db():
         with conn:
             with conn.cursor() as curs:
                 file = open("../Workflow_Scripts/Deploy_files.txt","r")
-                content = file.readline()
+                content = file.read()
                 print(content)
                 file.close()
                 files = content.split['\n']
