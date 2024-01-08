@@ -52,20 +52,26 @@ def deploy_scripts():
         global conn
         with conn:
             with conn.cursor() as curs:
-                curs.execute("SAVEPOINT Test12345;")
-                file = open("../Workflow_Scripts/Deploy_files.txt","r")
-                content = file.read()
-                print(content)
-                file.close()
-                files = content.split('\n')
-                for file in files:
-                    if file != '':
-                        print(file)
-                        curs.execute(open(file, "r").read())
-                #curs.execute(open("../sql-scripts/data.sql", "r").read())
-                raise NameError('Test Error')
-                conn.commit()
-                print('SQL scripts executed')
+                try:
+                    curs.execute("SAVEPOINT Test12345;")
+                    file = open("../Workflow_Scripts/Deploy_files.txt","r")
+                    content = file.read()
+                    print(content)
+                    file.close()
+                    files = content.split('\n')
+                    for file in files:
+                        if file != '':
+                            print(file)
+                            curs.execute(open(file, "r").read())
+                    #curs.execute(open("../sql-scripts/data.sql", "r").read())
+                    raise NameError('Test Error')
+                    conn.commit()
+                    print('SQL scripts executed')
+                except NameError as err:
+                    curs.execute('ROLLBACK TO SAVEPOINT Test12345;')
+                    print('error raised intentionally')
+                    close_conn()
+                    exit(1)
     except (psycopg2.OperationalError, psycopg2.DatabaseError, FileNotFoundError) as err:
         print(deploy_scripts.__name__, err)
         close_conn()
