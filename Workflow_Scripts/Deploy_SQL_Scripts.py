@@ -64,7 +64,7 @@ def deploy_scripts():
                             print(file)
                             curs.execute(open(file, "r").read())
                     #curs.execute(open("../sql-scripts/data.sql", "r").read())
-                    raise NameError('Test Error')
+                    raise Test_Error('Test Error')
                     conn.commit()
                     print('SQL scripts executed')
                 except Exception as err:
