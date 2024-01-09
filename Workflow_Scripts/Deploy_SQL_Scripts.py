@@ -67,9 +67,7 @@ def deploy_scripts():
                     conn.commit()
                     print('SQL scripts executed')
                 except Exception as err:
-                    print('error raised intentionally')
-                    close_conn()
-                    exit(1)
+                    print('error occured :',err)
     except (psycopg2.OperationalError, psycopg2.DatabaseError, FileNotFoundError) as err:
         print(deploy_scripts.__name__, err)
         close_conn()
