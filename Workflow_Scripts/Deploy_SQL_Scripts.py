@@ -67,7 +67,7 @@ def deploy_scripts():
                     raise NameError('Test Error')
                     conn.commit()
                     print('SQL scripts executed')
-                except NameError as err:
+                except Exception as err:
                     curs.execute('ROLLBACK TO SAVEPOINT Test12345; end;')
                     print('error raised intentionally')
                     close_conn()
