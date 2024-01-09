@@ -53,7 +53,6 @@ def deploy_scripts():
         with conn:
             with conn.cursor() as curs:
                 try:
-                    curs.execute("begin; SAVEPOINT Test12345;")
                     file = open("../Workflow_Scripts/Deploy_files.txt","r")
                     content = file.read()
                     print(content)
@@ -64,11 +63,10 @@ def deploy_scripts():
                             print(file)
                             curs.execute(open(file, "r").read())
                     #curs.execute(open("../sql-scripts/data.sql", "r").read())
-                    raise Test_Error('Test Error')
+                    #raise Test_Error('Test Error')
                     conn.commit()
                     print('SQL scripts executed')
                 except Exception as err:
-                    curs.execute('ROLLBACK TO SAVEPOINT Test12345; end;')
                     print('error raised intentionally')
                     close_conn()
                     exit(1)
@@ -76,13 +74,6 @@ def deploy_scripts():
         print(deploy_scripts.__name__, err)
         close_conn()
         exit(1)
-    except NameError as err:
-        curs.execute('ROLLBACK TO SAVEPOINT Test12345;')
-        print('error raised intentionally')
-        close_conn()
-        exit(1)
-
-
 
 def close_conn():
     """
